@@ -1,11 +1,10 @@
-# Philosopher
+# Philosophers
 
 <p align="center">
 <img src="https://i.insider.com/5811064b362ca478258b4dd0?width=1136&format=jpeg" align="center"/>
 </p>
 
-## What is Philosopher?
-This is a simulation of the famous Philosophers Dining Problem, 
+## What is Philosophers?
 
 The simulation consists of a group of philosophers sitting at a round table with a large bowl of spaghetti in the middle of the table. The philosophers alternate between eating, thinking, and sleeping.
 
