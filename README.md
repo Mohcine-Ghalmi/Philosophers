@@ -25,3 +25,19 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 ## Function Used In The Project
 
 <img src="Screen Shot 2023-05-05 at 12.17.15 PM.png">
+
+* `memset` - fill a bytes string with a bytes value
+
+* `printf` - prints its arguments
+
+* `malloc` - memory allocation
+
+* `free` - memory deallocation
+
+* `write` - write to a file descriptor
+
+* `usleep` - suspend thread execution for an interval measured in microseconds
+
+* `gettimeofday` - get date and time 
+
+* `pthread_create` - 
