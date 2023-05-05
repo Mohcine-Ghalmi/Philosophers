@@ -1,8 +1,6 @@
 # Philosophers
 
-<p align="center">
-<img src="https://i.insider.com/5811064b362ca478258b4dd0?width=1136&format=jpeg" align="center"/>
-</p>
+<img src="https://i.insider.com/5811064b362ca478258b4dd0?width=1136&format=jpeg"/>
 
 ## What Is Philosophers?
 
@@ -24,3 +22,6 @@ Jokes apart, but the dining philosophers problem is an excellent example to expl
 
 Consider the philosophers to be processes and the chopsticks to be a shared resource. Every process needs two resources out of which one it has already acquired and the other is acquired by some other process. Till the other process does not free the resource, this process cannot proceed. Similarly, the other process is dependent on another process for its resource. Since every process is dependent on each other, it forms a circular-wait and the system goes into a deadlock condition (```a situation in which more than one process is blocked because it is holding a resource and also requires some resource that is acquired by some other process```).
 
+## Function Used In The Project
+
+<img src="Screen Shot 2023-05-05 at 12.17.15 PM.png">
