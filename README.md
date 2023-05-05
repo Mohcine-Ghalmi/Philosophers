@@ -40,4 +40,16 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 
 * `gettimeofday` - get date and time 
 
-* `pthread_create` - 
+* `pthread_create` - creat a new thread
+
+* `pthread_detach` - detach a thread 
+
+* `pthread_join` - join with a terminated thread 
+
+* `pthread_mutex_init` - initializes the mutex object 
+
+* `pthread_mutex_destroy` - destroy a mutex object 
+
+* `pthread_mutex_lock` - locks the given mutex
+
+* `pthread_mutex_unlock` - unlock the given mutex
