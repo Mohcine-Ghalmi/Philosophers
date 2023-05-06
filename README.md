@@ -53,3 +53,14 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 * `pthread_mutex_lock` - locks the given mutex
 
 * `pthread_mutex_unlock` - unlock the given mutex
+
+## What Is Threads
+
+> A thread is a basic unit of CPU Utilization.
+
+>Like processes, threads are a mechanism that permits an application to perform multiple tasks concurrently.
+
+>A single process can contain multiple threads, All of these thread are independently executing the same program, and they all share the same globale memory.
+
+<img src="Screen Shot 2023-05-06 at 12.12.58 PM 1.png">
+
