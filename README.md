@@ -58,5 +58,7 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 
 > A thread is a basic unit of CPU Utilization. Like processes, threads are a mechanism that permits an application to perform multiple tasks concurrently. A single process can contain multiple threads, All of these thread are independently executing the same program, and they all share the same globale memory.
 
+>Threads themselves can be created either on the stack or on the heap, depending on how they are created. but we use `pthread_create()` function, so the thread's stack is typically allocated on the heap by the operating system. However, you can also create threads with a stack allocated on the stack of the main thread. Regardless of where the thread's stack is allocated, the thread itself will share the same process address space as other threads in the process. This means that threads can share data and communicate with each other using shared variables, regardless of where the memory for those variables is allocated.
+
 <img src="Screen Shot 2023-05-06 at 12.12.58 PM 1.png">
 
