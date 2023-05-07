@@ -44,7 +44,7 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 
 * `pthread_detach` - detach a thread 
 
-* `pthread_join` - join with a terminated thread 
+* `pthread_join` - wait for thread termination 
 
 * `pthread_mutex_init` - initializes the mutex object 
 
@@ -57,8 +57,21 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 ## What Is Threads
 
 > A thread is a basic unit of CPU Utilization. Like processes, threads are a mechanism that permits an application to perform multiple tasks concurrently. A single process can contain multiple threads, All of these thread are independently executing the same program, and they all share the same globale memory.
-
->Threads themselves can be created either on the stack or on the heap, depending on how they are created. but we use `pthread_create()` function, so the thread's stack is typically allocated on the heap by the operating system. However, you can also create threads with a stack allocated on the stack of the main thread. Regardless of where the thread's stack is allocated, the thread itself will share the same process address space as other threads in the process. This means that threads can share data and communicate with each other using shared variables, regardless of where the memory for those variables is allocated.
-
+<br>Threads themselves can be created either on the stack or on the heap, depending on how they are created. but we use `pthread_create()` function, so the thread's stack is typically allocated on the heap by the operating system. <br>However, you can also create threads with a stack allocated on the stack of the main thread. Regardless of where the thread's stack is allocated, the thread itself will share the same process address space as other threads in the process. <br>This means that threads can share data and communicate with each other using shared variables, regardless of where the memory for those variables is allocated.
+<br>When a program is started, the resulting process consists of a single thread, called the initial or main thread.
 <img src="Screen Shot 2023-05-06 at 12.12.58 PM 1.png">
+
+## Threads Versus Processes
+
+* Sharing data between threads is easy. By contrast, sharing data between processes requires more work (e.g., creating a shared memory segment or using a pipe).
+
+* Thread creation is faster than process creation; context-switch time may be lower for threads than for processes.
+
+* A bug in one thread (e.g., modifying memory via an incorrect pointer) can damage all of the threads in the process, since they share the same address space and other attributes. By contrast, processes are more isolated from one another.
+
+* In a multithreaded application, all threads must be running the same program (although perhaps in different functions). In a multiprocess application, different processes can run different programs.
+
+* Aside from data, threads also share certain other information (e.g., file descriptors, signal dispositions, current working directory, and user and group IDs). This may be an advantage or a disadvantage, depending on the application.
+
+## Threads Synchronization (mutex)
 
