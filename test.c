@@ -17,14 +17,14 @@ int main(void)
     pthread_t Thread3;
     void *res;
 
-    pthread_create(&Thread1, NULL, threadFunc, "Hello Thread");
-    pthread_create(&Thread2, NULL, threadFunc, "Hello Thread");
-    pthread_create(&Thread3, NULL, threadFunc, "Hello Thread");
+    pthread_create(&Thread1, NULL, threadFunc, "i'm The Thread number");
+    pthread_create(&Thread2, NULL, threadFunc, "i'm The Thread number");
+    pthread_create(&Thread3, NULL, threadFunc, "i'm The Thread number");
     pthread_join(Thread1, &res);
     pthread_join(Thread2, &res);
     pthread_join(Thread3, &res);
     // pthread_detach(pthread_self());
     // usleep(40000);
-    printf("Threads returned %ld\n", (long)res);
+    printf("Threads returned %ld", (long)res);
     return 0;
 }
