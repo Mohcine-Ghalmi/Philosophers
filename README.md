@@ -73,5 +73,10 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 
 * Aside from data, threads also share certain other information (e.g., file descriptors, signal dispositions, current working directory, and user and group IDs). This may be an advantage or a disadvantage, depending on the application.
 
-## Threads Synchronization (mutex)
+## Threads Synchronization (mutex `mutual exclusion`)
 
+> Mutexes allow threads to synchronize their use of a shared resource, so that, for example, one thread doesn’t try to access a shared variable at the same time as another thread is modifying it.
+
+>simple example of a problems that can occur when shared resources are not accessed atomically. This program creates two threads, each of which executes the same function. The function executes a loop that repeatedly increments a global variable, `glob`, by copying `glob` into the local variable `loc`, incrementing `loc`, and copying `loc` back to `glob`. (Since `loc` is an automatic variable allocated on the perthread stack, each thread has its own copy of this variable.) The number of iterations of the loop is determined by the command-line argument supplied to the program, or by a default value, if no argument is supplied.<br><img src="Screen Shot 2023-05-07 at 6.03.26 PM.png">
+
+>To avoid the problems that can occur when threads try to update a shared vari- able, we must use a mutex to ensure that only one thread at a time can access the variable. <br> A mutex has two states: locked and unlocked. At any moment, at most one thread may hold the lock on a mutex. When a thread locks a mutex, it becomes the owner of that mutex. Only the mutex owner can unlock the mutex.<br><img src="Screen Shot 2023-05-07 at 8.01.29 PM.png">
