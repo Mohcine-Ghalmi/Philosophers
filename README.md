@@ -16,6 +16,8 @@ The simulation stops when a philosopher dies of starvation. Every philosopher ne
 
 There are 5 philosophers sitting around a round table eating spaghetti and each of them has one chopstick between them. All 5 of them sit around the table and pick up the chopstick placed towards their right. But, here’s the problem. To eat the spaghetti they need both the chopsticks and since everyone picked up the chopstick to their right, nobody gets the left chopstick and hence, nobody can eat.
 
+
+![Alt text](https://static.javatpoint.com/operating-system/images/os-dining-philosophers-problem.gif)<br>
 Logically thinking, this problem isn’t really a problem in real life scenario. The philosophers could have asked for a few extra pairs of chopsticks, or they could have eaten using their hands 😂 .
 
 Jokes apart, but the dining philosophers problem is an excellent example to explain the concept of deadlock while resource sharing in OS.
