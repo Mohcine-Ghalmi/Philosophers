@@ -1,8 +1,8 @@
 NAME = philo
 
-SRCS = test.c
+SRCS = test.c libftFunctions.c philosophersState.c
 
-HEADER = philosophers.h
+HEADER = philosophers.h 
 
 # OBJ = $(SRCS:%.c=%.o)
 

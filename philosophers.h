@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:11 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/09 20:18:01 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/11 18:19:53 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ typedef struct philosophers
     long time_to_sleep;
     long number_of_times_each_philosopher_must_eat;
 }           t_philo;
+
+long	ft_atoi(const char *str);
+int check_args(t_philo *philosophers);
+long long timevalue(void);
 
 #endif
