@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:06:51 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/11 17:12:48 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/13 22:27:03 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ long	ft_atoi(const char *str)
 	return (signe * res);
 }
 
-int check_args(t_philo *philosophers)
+int check_args(t_shared *philosophers)
 {
-	if (philosophers->number_of_philosophers > 0)
-		if (philosophers->time_to_die >= 60 && philosophers->time_to_die <= max_value)
-			if (philosophers->time_to_eat >= 60 && philosophers->time_to_eat <= max_value)
-				if (philosophers->time_to_sleep >= 60 && philosophers->time_to_sleep <= max_value)
-					return 0;
+	if (philosophers->time_to_die >= 60 && philosophers->time_to_die <= max_value)
+		if (philosophers->time_to_eat >= 60 && philosophers->time_to_eat <= max_value)
+			if (philosophers->time_to_sleep >= 60 && philosophers->time_to_sleep <= max_value)
+				return 0;
 	return 1;
 }
