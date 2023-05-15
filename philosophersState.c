@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophersState.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sleeps <sleeps@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:04:04 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/11 18:19:33 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/14 23:31:20 by sleeps           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,3 @@ long long timevalue(void)
     gettimeofday(&timeval, NULL);
     return (timeval.tv_sec * 1000 + timeval.tv_usec / 1000);
 }
-

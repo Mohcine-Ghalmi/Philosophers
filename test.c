@@ -33,18 +33,20 @@ int main(int argc, char **argv)
     {
         number_of_philosophers = ft_atoi(argv[1]);
         if (number_of_philosophers <= 0)
+        {
+            printf("\033[32Error\n");
             return (0);
+        }
         philo = malloc(sizeof(t_philo) * number_of_philosophers);
+        philosophers = malloc(sizeof(t_shared));
         if (data_taking(philosophers, argv))
         {
-            free(philosophers);
+            free(philo);
             printf("\033[31minvalid arguments");
             return (0);
         }
         else
-        {
-            // philo_table()
-        }
+            philo_table(philo, number_of_philosophers);
     }
     else
         printf("\033[31minvalid arguments");
