@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:11 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/17 10:40:25 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/24 15:54:15 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ typedef struct philosopher
 {
     int last_eat;
     int waiting;
+    int thinking;
     int number;
+    int philo_life_time;
     pthread_mutex_t *right_frok;
     pthread_mutex_t *left_frok;
     pthread_t philo_thread;
