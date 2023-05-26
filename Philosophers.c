@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sleeps <sleeps@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/24 17:09:02 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/25 13:33:00 by sleeps           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void    create_philosopher(t_philo *philosopher, long number_of_philosphers)
         philosopher->last_eat = 0;
         philosopher->thinking = 0;
         philosopher->last_eat = 0;
-        
+        pthread_mutex_init(philosopher->left_frok, NULL);
     }
 }
 
@@ -68,6 +68,7 @@ int main(int argc, char **argv)
             printf("\033[31minvalid arguments");
             return (0);
         }
+        create_philosopher(philosopher, number_of_philosophers);
     }
     else
         printf("\033[31minvalid arguments");
