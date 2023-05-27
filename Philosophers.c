@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleeps <sleeps@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/25 13:33:00 by sleeps           ###   ########.fr       */
+/*   Updated: 2023/05/27 16:59:40 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,33 @@ int data_taking(t_shared *philosophers, char **argv)
     return (check_args(philosophers));
 }
 
-void    create_philosopher(t_philo *philosopher, long number_of_philosphers)
+void    create_philosopher(t_philo **philosopher, long number_of_philosphers)
 {
     int n_ph;
 
     n_ph = 0;
-    if (!philosopher)
-        return;
     while (n_ph < number_of_philosphers)
     {
-        philosopher->number = n_ph + 1;
-        philosopher->last_eat = 0;
-        philosopher->thinking = 0;
-        philosopher->last_eat = 0;
-        pthread_mutex_init(philosopher->left_frok, NULL);
+        philosopher[n_ph]->number = n_ph + 1;
+        philosopher[n_ph]->last_eat = 0;
+        philosopher[n_ph]->thinking = 0;
+        philosopher[n_ph]->last_eat = 0;
+        pthread_mutex_init(philosopher[n_ph]->right_frok, NULL);
+        if (n_ph == number_of_philosphers - 1)
+            philosopher[n_ph]->left_frok = &philosopher[0]->right_frok;
+        else
+            philosopher[n_ph]->left_frok = &philosopher[n_ph + 1]->right_frok;
+        n_ph++;
     }
+    int i = 0;
+    while (i++ < number_of_philosphers)
+        printf("philos nbr == here");
 }
 
 int main(int argc, char **argv)
 {
     t_shared *philosophers;
-    t_philo *philosopher;
+    t_philo **philosopher;
     long number_of_philosophers;
 
     if (argc == 5 || argc == 6)
@@ -57,7 +63,7 @@ int main(int argc, char **argv)
             printf("\033[31mError\n");
             return (0);
         }
-        philosopher = malloc(sizeof(t_philo) * number_of_philosophers);
+        philosopher = malloc(sizeof(t_philo *) * number_of_philosophers);
         philosophers = malloc(sizeof(t_shared));
         if (!philosopher || !philosopher)
             return 0;
