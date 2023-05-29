@@ -1,22 +1,20 @@
 NAME = philo
 
-SRCS = libftFunctions.c philosophersState.c
-
-MAIN = Philosophers.c
+SRCS = libftFunctions.c philosophersState.c Philosophers.c
 
 HEADER = philosophers.h 
 
-# OBJ = $(SRCS:%.c=%.o)
+OBJ = $(SRCS:%.c=%.o)
 
 all : $(NAME)
 
-$(NAME) :  $(HEADER) #$(OBJ)
-	cc -Wall -Wextra -Werror $(SRCS) $(MAIN) -o $(NAME)
+$(NAME) :  $(HEADER) $(OBJ)
+	cc -Wall -Wextra -Werror $(SRCS) -o $(NAME)
 
 clean :
-	#rm -rfv $(OBJ) 
+	rm -rfv $(OBJ) 
 
-fclean : #clean
+fclean : clean
 	rm -rfv $(NAME)
 
 re : fclean all

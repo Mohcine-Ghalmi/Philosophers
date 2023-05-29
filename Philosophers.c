@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/28 19:38:21 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/29 19:52:30 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ int data_taking(t_shared *philosophers, char **argv)
     return (check_args(philosophers));
 }
 
-void    free_prev_philos(t_philo **philosopher)
+void    free_prev_philos(t_philo **philosopher, long n_ph)
 {
-    
+    while(n_ph--)
+        free(philosopher[n_ph]);   
 }
 
 void    create_philosopher(t_philo **philosopher, long number_of_philosophers)
@@ -40,12 +41,14 @@ void    create_philosopher(t_philo **philosopher, long number_of_philosophers)
     {
         philosopher[n_ph] = malloc(sizeof(t_philo));
         if (!philosopher[n_ph])
-            return ;
+        {
+            free_prev_philos(philosopher, n_ph);
+            return;
+        }
         philosopher[n_ph]->number = n_ph + 1;
         philosopher[n_ph]->last_eat = 0;
         philosopher[n_ph]->thinking = 0;
         philosopher[n_ph]->last_eat = 0;
-        philosopher[n_ph]->left_fork = NULL;
         pthread_mutex_init(&(philosopher[n_ph]->right_fork), NULL);
         if (n_ph == number_of_philosophers - 1)
             philosopher[n_ph]->left_fork = &(philosopher[0]->right_fork);
@@ -55,7 +58,21 @@ void    create_philosopher(t_philo **philosopher, long number_of_philosophers)
     }
 }
 
+void    start_threads(t_philo **philosopher, long number_of_philosophers, t_shared *philosophers)
+{
+    long long start_time;
 
+    start_time = timevalue();
+    int i = -1;
+    while (++i < number_of_philosophers)
+        pthread_create(&(philosopher[i]->philo_thread), NULL, take_forks, philosopher[i]);
+    i = -1;
+    while (++i < number_of_philosophers)
+            pthread_join(philosopher[i]->philo_thread, NULL);
+    (void)philosopher;
+    (void)philosophers;
+    (void)number_of_philosophers;
+}
 
 int main(int argc, char **argv)
 {
@@ -83,6 +100,7 @@ int main(int argc, char **argv)
             return (0);
         }
         create_philosopher(philosopher, number_of_philosophers);
+        start_threads(philosopher, number_of_philosophers, philosophers);
     }
     else
         printf("\033[31minvalid arguments");

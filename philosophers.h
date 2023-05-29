@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:11 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/28 18:24:59 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/29 18:20:30 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ typedef struct philosopher
 long	ft_atoi(const char *str);
 int check_args(t_shared *philosophers);
 long long timevalue(void);
+void    *take_forks(void    *arg);
 
 #endif
