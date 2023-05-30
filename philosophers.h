@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:11 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/29 18:20:30 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/30 18:36:07 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,16 @@ typedef struct philosopher
     int philo_life_time;
     pthread_mutex_t right_fork;
     pthread_mutex_t *left_fork;
+    pthread_mutex_t *eating;
     pthread_t philo_thread;
+    t_shared *shared;
 }   t_philo;
 
 long	ft_atoi(const char *str);
 int check_args(t_shared *philosophers);
 long long timevalue(void);
-void    *take_forks(void    *arg);
+void    take_forks(t_philo *philosopher);
+void    *lifephilo(void  *arg);
+int data_taking(t_shared *philosophers, char **argv);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/29 19:52:30 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/30 18:43:40 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int data_taking(t_shared *philosophers, char **argv)
 {
+	puts("here");
     philosophers->time_to_die = ft_atoi(argv[2]);
     philosophers->time_to_eat = ft_atoi(argv[3]);
     philosophers->time_to_sleep = ft_atoi(argv[4]);
@@ -32,14 +33,19 @@ void    free_prev_philos(t_philo **philosopher, long n_ph)
         free(philosopher[n_ph]);   
 }
 
-void    create_philosopher(t_philo **philosopher, long number_of_philosophers)
+void    create_philosophers(t_philo **philosopher, long number_of_philosophers)
 {
     int n_ph;
 
     n_ph = 0;
+	while (n_ph < number_of_philosophers)
+	{
+        philosopher[n_ph] = malloc(sizeof(t_philo));
+        pthread_mutex_init(&(philosopher[n_ph++]->right_fork), NULL);
+	}
+	n_ph = 0;
     while (n_ph < number_of_philosophers)
     {
-        philosopher[n_ph] = malloc(sizeof(t_philo));
         if (!philosopher[n_ph])
         {
             free_prev_philos(philosopher, n_ph);
@@ -49,37 +55,36 @@ void    create_philosopher(t_philo **philosopher, long number_of_philosophers)
         philosopher[n_ph]->last_eat = 0;
         philosopher[n_ph]->thinking = 0;
         philosopher[n_ph]->last_eat = 0;
-        pthread_mutex_init(&(philosopher[n_ph]->right_fork), NULL);
         if (n_ph == number_of_philosophers - 1)
-            philosopher[n_ph]->left_fork = &(philosopher[0]->right_fork);
+			philosopher[n_ph]->left_fork = &(philosopher[0]->right_fork);
         else
-            philosopher[n_ph]->left_fork = &(philosopher[n_ph + 1]->right_fork);
+			philosopher[n_ph]->left_fork = &(philosopher[n_ph + 1]->right_fork);
         n_ph++;
     }
 }
 
-void    start_threads(t_philo **philosopher, long number_of_philosophers, t_shared *philosophers)
+void    start_threads(t_philo **philosopher, long number_of_philosophers)
 {
     long long start_time;
 
     start_time = timevalue();
     int i = -1;
     while (++i < number_of_philosophers)
-        pthread_create(&(philosopher[i]->philo_thread), NULL, take_forks, philosopher[i]);
+        pthread_create(&(philosopher[i]->philo_thread), NULL, lifephilo, philosopher[i]);
     i = -1;
     while (++i < number_of_philosophers)
             pthread_join(philosopher[i]->philo_thread, NULL);
     (void)philosopher;
-    (void)philosophers;
     (void)number_of_philosophers;
 }
 
 int main(int argc, char **argv)
 {
-    t_shared *philosophers;
     t_philo **philosopher;
     long number_of_philosophers;
+	int n;
 
+	n = 0;
     if (argc == 5 || argc == 6)
     {
         number_of_philosophers = ft_atoi(argv[1]);
@@ -89,18 +94,20 @@ int main(int argc, char **argv)
             return (0);
         }
         philosopher = malloc(sizeof(t_philo *) * number_of_philosophers);
-        philosophers = malloc(sizeof(t_shared));
-        if (!philosopher || !philosophers)
+        if (!philosopher)
             return 0;
-        if (data_taking(philosophers, argv))
-        {
-            free(philosopher);
-            free(philosophers);
-            printf("\033[31minvalid arguments");
-            return (0);
-        }
-        create_philosopher(philosopher, number_of_philosophers);
-        start_threads(philosopher, number_of_philosophers, philosophers);
+        while (n < number_of_philosophers)
+		{
+			philosopher[n]->shared = malloc(sizeof(t_philo));
+			if (data_taking(philosopher[n++]->shared, argv))
+        	{
+        	    free(philosopher);
+        	    printf("\033[31minvalid arguments");
+        	    return (0);
+        	}
+		}
+        // create_philosophers(philosopher, number_of_philosophers);
+        // start_threads(philosopher, number_of_philosophers);
     }
     else
         printf("\033[31minvalid arguments");
