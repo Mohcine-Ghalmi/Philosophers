@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleeps <sleeps@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/30 23:26:52 by sleeps           ###   ########.fr       */
+/*   Updated: 2023/06/01 15:52:01 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,9 @@ int data_taking(t_shared *philosophers, char **argv)
         philosophers->number_of_times_each_philosopher_must_eat =  ft_atoi(argv[5]);
         if (philosophers->number_of_times_each_philosopher_must_eat < 0)
             return 1;
-    }
+    }else
+        philosophers->number_of_times_each_philosopher_must_eat =  -1;
     return (check_args(philosophers));
-}
-
-void    free_prev_philos(t_philo **philosopher, long n_ph)
-{
-    while(n_ph--)
-        free(philosopher[n_ph]);   
 }
 
 void    create_philosophers(t_philo **philosopher, long number_of_philosophers)
@@ -39,14 +34,9 @@ void    create_philosophers(t_philo **philosopher, long number_of_philosophers)
 	n_ph = 0;
     while (n_ph < number_of_philosophers)
     {
-        if (!philosopher[n_ph])
-        {
-            free_prev_philos(philosopher, n_ph);
-            return;
-        }
         philosopher[n_ph]->number = n_ph + 1;
         philosopher[n_ph]->last_eat = 0;
-        philosopher[n_ph]->thinking = 0;
+        philosopher[n_ph]->waiting = 0;
         philosopher[n_ph]->last_eat = 0;
         if (n_ph == number_of_philosophers - 1)
 			philosopher[n_ph]->left_fork = &(philosopher[0]->right_fork);
@@ -58,17 +48,15 @@ void    create_philosophers(t_philo **philosopher, long number_of_philosophers)
 
 void    start_threads(t_philo **philosopher, long number_of_philosophers)
 {
-    // long long start_time;
-
-    // start_time = timevalue();
     int i = -1;
+    while (++i < number_of_philosophers)
+        philosopher[i]->last_eat = timevalue();
+    i = -1;
     while (++i < number_of_philosophers)
         pthread_create(&(philosopher[i]->philo_thread), NULL, lifephilo, philosopher[i]);
     i = -1;
     while (++i < number_of_philosophers)
-            pthread_join(philosopher[i]->philo_thread, NULL);
-    (void)philosopher;
-    (void)number_of_philosophers;
+        pthread_join(philosopher[i]->philo_thread, NULL);
 }
 
 int main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:06:51 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/30 18:23:43 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/05/31 18:10:31 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ long	ft_atoi(const char *str)
 	if (str[i] || signe == 0)
 		return -1;
 	return (signe * res);
+}
+
+void	my_usleep(long milis)
+{
+	long  int timev;
+	timev = timevalue();
+	while (timevalue() - timev < milis)
+		usleep(milis / 10);
 }
 
 int check_args(t_shared *philosophers)
