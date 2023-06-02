@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:11 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/01 15:53:05 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/02 23:21:35 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,26 @@
 
 typedef struct philosophers
 {
-    long time_to_die;
+    long long time_to_die;
     long time_to_eat;
     long time_to_sleep;
     long number_of_times_each_philosopher_must_eat;
+    long long time_start;
 }           t_shared;
 
 typedef struct philosopher
 {
     long long last_eat;
-    int waiting;
     int number;
     int eating_number;
-    int philo_life_time;
+    long long philo_life_time;
     pthread_mutex_t right_fork;
     pthread_mutex_t *left_fork;
     pthread_t philo_thread;
     t_shared *shared;
 }   t_philo;
+
+
 
 long	ft_atoi(const char *str);
 int check_args(t_shared *philosophers);

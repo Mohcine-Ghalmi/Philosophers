@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:06:51 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/05/31 18:10:31 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:13:18 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ long	ft_atoi(const char *str)
 void	my_usleep(long milis)
 {
 	long  int timev;
+
 	timev = timevalue();
 	while (timevalue() - timev < milis)
 		usleep(milis / 10);
