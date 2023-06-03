@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:07:11 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/02 23:21:35 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/03 18:09:34 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct philosopher
     long long last_eat;
     int number;
     int eating_number;
-    long long philo_life_time;
     pthread_mutex_t right_fork;
     pthread_mutex_t *left_fork;
     pthread_t philo_thread;
@@ -50,7 +49,7 @@ long long timevalue(void);
 void    take_forks(t_philo *philosopher);
 void    *lifephilo(void  *arg);
 int data_taking(t_shared *philosophers, char **argv);
-void	my_usleep(long milis);
+int	my_usleep(long milis, t_philo *philosopher);
 int   check_death(t_philo *philosopher);
 
 #endif

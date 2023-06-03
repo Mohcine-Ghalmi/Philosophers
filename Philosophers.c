@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/02 23:22:17 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/03 18:12:29 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ void    start_threads(t_philo **philosopher, long number_of_philosophers)
         philosopher[i]->shared->time_start = time;
     i = -1;
     while (++i < number_of_philosophers)
+    {
+        philosopher[i]->last_eat = timevalue();
         if (pthread_create(&(philosopher[i]->philo_thread), NULL, lifephilo, philosopher[i]))
             return ;
+    }
     i = -1;
     while (++i < number_of_philosophers)
         pthread_join(philosopher[i]->philo_thread, NULL);
@@ -93,6 +96,14 @@ int main(int argc, char **argv)
 		}
         create_philosophers(philosopher, number_of_philosophers);
         start_threads(philosopher, number_of_philosophers);
+        n = 0;
+        while (n < number_of_philosophers)
+        {
+            free(philosopher[n]->shared);
+            free(philosopher[n]);
+            n++;
+        }
+        free(philosopher);
     }
     else
         printf("\033[31minvalid arguments");
