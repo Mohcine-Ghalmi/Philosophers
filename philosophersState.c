@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:04:04 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/02 23:21:51 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/03 01:37:58 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void    *lifephilo(void  *arg)
         printf("%lld %d is thinking\n", timevalue() - philosopher->shared->time_start, philosopher->number);
         if (!check_death(philosopher))
             break;
-        philosopher->shared->time_to_die += timevalue() - philosopher->last_eat + philosopher->shared->time_to_die;
+        philosopher->shared->time_to_die = timevalue() - philosopher->last_eat + philosopher->shared->time_to_die;
     }
     return (NULL);
 }
