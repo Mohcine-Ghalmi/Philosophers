@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:06:51 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/03 15:55:24 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/04 16:52:47 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int	my_usleep(long milis, t_philo *philosopher)
 	while (timevalue() - timev < milis)
 	{
 		if (check_death(philosopher) == 0)
+		{
+			pthread_mutex_unlock(&(philosopher->right_fork));
+    		pthread_mutex_unlock((philosopher->left_fork));
 			return 0;
+		}
 		usleep(milis / 10);
 	}
 	return 1;
@@ -59,4 +63,14 @@ int check_args(t_shared *philosophers)
 			if (philosophers->time_to_sleep >= 60 && philosophers->time_to_sleep <= max_value)
 				return 0;
 	return 1;
+}
+
+t_end *creat_end(pthread_mutex_t *end)
+{
+	t_end *new;
+
+	new = malloc(sizeof(t_end));
+	new->die = 0;
+	new->death = end;
+	return (new);
 }

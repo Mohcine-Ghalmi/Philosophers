@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/03 18:12:29 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/04 16:54:44 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,15 @@ void    create_philosophers(t_philo **philosopher, long number_of_philosophers)
         philosopher[n_ph]->number = n_ph + 1;
         philosopher[n_ph]->last_eat = 0;
         if (n_ph == number_of_philosophers - 1)
+        {
 			philosopher[n_ph]->left_fork = &(philosopher[0]->right_fork);
+            philosopher[n_ph]->end->next = philosopher[0]->end;
+        }
         else
+        {
 			philosopher[n_ph]->left_fork = &(philosopher[n_ph + 1]->right_fork);
+            philosopher[n_ph]->end->next = philosopher[n_ph + 1]->end;
+        }
         n_ph++;
     }
 }
@@ -55,18 +61,33 @@ void    start_threads(t_philo **philosopher, long number_of_philosophers)
     while (++i < number_of_philosophers)
     {
         philosopher[i]->last_eat = timevalue();
+        pthread_mutex_lock(philosopher[i]->end->death);
+        if (find_death(philosopher[i]) == 0)
+        {
+            pthread_mutex_unlock(philosopher[i]->end->death);
+            return;
+        }
+        pthread_mutex_unlock(philosopher[i]->end->death);
         if (pthread_create(&(philosopher[i]->philo_thread), NULL, lifephilo, philosopher[i]))
             return ;
     }
     i = -1;
     while (++i < number_of_philosophers)
         pthread_join(philosopher[i]->philo_thread, NULL);
+    i = -1;
+    while (++i < number_of_philosophers)
+    {
+        pthread_mutex_destroy(&philosopher[i]->right_fork);
+        pthread_mutex_destroy(philosopher[i]->end->death);
+    }
+    
 }
 
 int main(int argc, char **argv)
 {
     t_philo **philosopher;
     long number_of_philosophers;
+    pthread_mutex_t *end;
 	int n;
 
 	n = 0;
@@ -81,11 +102,14 @@ int main(int argc, char **argv)
         philosopher = malloc(sizeof(t_philo *) * number_of_philosophers);
         if (!philosopher)
             return 0;
+        end = malloc(sizeof(pthread_mutex_t));
+        pthread_mutex_init(end, NULL);
         while (n < number_of_philosophers)
 		{
 			philosopher[n] = malloc(sizeof(t_philo));
             pthread_mutex_init(&philosopher[n]->right_fork, NULL);
             philosopher[n]->shared = malloc(sizeof(t_shared));
+            philosopher[n]->end = creat_end(end);
             if (data_taking(philosopher[n]->shared, argv))
             {
                 free(philosopher);
@@ -95,6 +119,12 @@ int main(int argc, char **argv)
             ++n;
 		}
         create_philosophers(philosopher, number_of_philosophers);
+        if (number_of_philosophers == 1)
+        {
+            pthread_create(&philosopher[0]->philo_thread, NULL, lifephilo, philosopher[0]);
+            pthread_detach(philosopher[0]->philo_thread);
+            return 0;
+        }
         start_threads(philosopher, number_of_philosophers);
         n = 0;
         while (n < number_of_philosophers)
