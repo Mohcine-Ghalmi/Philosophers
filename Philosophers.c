@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sleeps <sleeps@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/06 17:35:23 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/07 00:09:12 by sleeps           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	end_philo(t_philo *philosopher)
 		>= philosopher->shared->time_to_die)
 	{
 		pthread_mutex_lock(philosopher->death_print);
-		printf("%lld %d is die\n", timevalue()
+		printf("%lld %d died\n", timevalue()
 			- philosopher->last_eat, philosopher->number);
 		return (0);
 	}
