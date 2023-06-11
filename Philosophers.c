@@ -6,7 +6,7 @@
 /*   By: sleeps <sleeps@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:47:33 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/07 00:09:12 by sleeps           ###   ########.fr       */
+/*   Updated: 2023/06/11 16:27:47 by sleeps           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	end_philo(t_philo *philosopher)
 {
 	pthread_mutex_lock(philosopher->l_eat);
 	if (timevalue() - philosopher->last_eat
-		>= philosopher->shared->time_to_die)
+		> philosopher->shared->time_to_die)
 	{
 		pthread_mutex_lock(philosopher->death_print);
 		printf("%lld %d died\n", timevalue()

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophersState.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sleeps <sleeps@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:04:04 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/06 17:47:22 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/11 16:28:56 by sleeps           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	take_forks(t_philo *philosopher)
 void	start_sleeping(t_philo *philosopher)
 {
 	pthread_mutex_lock(philosopher->death_print);
-	my_usleep(philosopher->shared->time_to_sleep);
 	printf("%lld %d is sleeping\n", timevalue()
 		- philosopher->shared->time_start, philosopher->number);
 	pthread_mutex_unlock(philosopher->death_print);
+	my_usleep(philosopher->shared->time_to_sleep);
 }
 
 void	*lifephilo(void *arg)
