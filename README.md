@@ -83,7 +83,7 @@ Consider the philosophers to be processes and the chopsticks to be a shared reso
 
 >To avoid the problems that can occur when threads try to update a shared vari- able, we must use a mutex to ensure that only one thread at a time can access the variable. <br> A mutex has two states: locked and unlocked. At any moment, at most one thread may hold the lock on a mutex. When a thread locks a mutex, it becomes the owner of that mutex. Only the mutex owner can unlock the mutex.<br><img src="Screen Shot 2023-05-07 at 8.01.29 PM.png">
 
-## Problems Why We Need mutex
+## Problems Why We Need mutex ?
 
 <h3>1- Race condition</h3>
 A race condition occurs when two or more threads can access shared data and try to change it at the same time. Because the thread scheduling algorithm can swap between threads at any time, you don't know the order in which the threads will attempt to access the shared data. Therefore, the result of the
@@ -93,3 +93,20 @@ change in data is dependent on the thread scheduling algorithm, i.e. both thread
 
 A deadlock happens when two threads/processes cannot make progress because each one waits for the other to release a lock, as illustrated in the following diagram.<br>
 <img src="https://prepinsta.com/wp-content/uploads/2023/01/Deadlock-in-Operating-System-1.webp">
+
+## Bonus Part
+
+## What Is Semaphores ?
+
+A semaphore is a synchronization primitive used in concurrent programming to control access to shared resources.<br> It is a variable or an abstract data type that is used to manage the execution of multiple threads or processes.
+
+<h3>the next figure shows
+the use of a semaphore to synchronize the actions of two processes that alternately move the semaphore value between 0 and 1.</h3>
+<br>
+<img src="Screen Shot 2023-06-15 at 5.49.49 PM.png">
+
+##  Uses of Semaphores
+
+>A semaphore has two operations:<br>
+``wait`` : Decrements the semaphore value. If the value is 0, the thread blocks until the value is greater than 0.<br>
+``signal`` : Increments the semaphore value. If the value is 1, a thread that is blocked on the semaphore is unblocked.

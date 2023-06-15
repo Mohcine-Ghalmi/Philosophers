@@ -18,7 +18,6 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 # define MAX_VALUE 2147483647
 
 typedef struct s_shared

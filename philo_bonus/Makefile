@@ -5,14 +5,14 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/15 12:30:03 by mghalmi           #+#    #+#              #
-#    Updated: 2023/06/15 17:53:11 by mghalmi          ###   ########.fr        #
+#    Created: 2023/06/15 16:46:24 by mghalmi           #+#    #+#              #
+#    Updated: 2023/06/15 16:46:39 by mghalmi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_bonus
 
-SRCS = create_threads.c giving_forks.c   helper.c   philosophers.c utils.c
+SRCS = 
 
 HEADER = philosophers.h 
 
@@ -21,7 +21,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : $(NAME)
 
 $(NAME) :  $(HEADER) $(OBJ)
-	cc -Wall -Wextra -Werror $(SRCS) -o $(NAME)
+	cc -Wall -Wextra -Werror $(SRCS) -o $(NAME) #-fsanitize=thread
 
 clean :
 	rm -rfv $(OBJ) 
