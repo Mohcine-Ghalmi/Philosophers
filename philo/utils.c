@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:15:13 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/15 16:15:26 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/16 19:53:35 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ void	after_taking(t_philosopher *philosopher)
 		- philosopher->shared->start_time;
 	pthread_mutex_unlock(&(philosopher->last_eat_locker));
 	detach_and_sleep(philosopher);
-	my_printer("is eating", philosopher);
 	my_printer("is thinking", philosopher);
 }

@@ -6,7 +6,7 @@
 #    By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 13:06:15 by mghalmi           #+#    #+#              #
-#    Updated: 2023/06/16 17:26:45 by mghalmi          ###   ########.fr        #
+#    Updated: 2023/06/16 19:15:41 by mghalmi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : $(NAME)
 
 $(NAME) :  $(HEADER) $(OBJ)
-	cc -Wall -Wextra -Werror $(SRCS) -o $(NAME) #-fsanitize=thread 
+	cc -Wall -Wextra -Werror $(SRCS) -o $(NAME)
 
 clean :
 	rm -rfv $(OBJ) 

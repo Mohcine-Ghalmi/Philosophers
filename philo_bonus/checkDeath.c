@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:04:31 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 17:26:36 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/16 19:11:56 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	*end_philos(void *arg)
 		if (time - phil->last_meal > phil->shared->time_to_die)
 		{
 			sem_wait(phil->shared->printer);
-			printf("%d %d died\n", time, phil->pos);
+			if (phil->eating_count < phil->shared->eating_number)
+				printf("%d %d died\n", time, phil->pos);
 			sem_post(phil->shared->finished);
 			exit(1);
 		}

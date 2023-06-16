@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:02:58 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/15 18:13:42 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/16 19:10:55 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (start_threads(&philosopheros, &shared) == 0)
 		kill_philos(&philosopheros[0]);
-	if (pthread_join(shared.thread_checker, NULL) != 0)
-		return (0);
+	(void)pthread_join(shared.thread_checker, NULL);
 	(void)thread_join(&philosopheros, &shared);
 	(void)pthread_mutex_destroy(&shared.dead_locker);
 	pthread_mutex_destroy(&shared.print_locker);
