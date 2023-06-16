@@ -110,3 +110,4 @@ the use of a semaphore to synchronize the actions of two processes that alternat
 >A semaphore has two operations:<br>
 ``wait`` : Decrements the semaphore value. If the value is 0, the thread blocks until the value is greater than 0.<br>
 ``signal`` : Increments the semaphore value. If the value is 1, a thread that is blocked on the semaphore is unblocked.
+

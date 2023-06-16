@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "string.h": "c",
-        "philosophers.h": "c"
+        "philosophers.h": "c",
+        "philo_bonus.h": "c"
     }
 }
