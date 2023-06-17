@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:29:52 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 19:53:20 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/17 09:11:32 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ int	start_threads(t_philosopher **philosopheros, t_shared *shared)
 			return (0);
 		n_ph++;
 	}
-	if (pthread_create(&(shared->thread_checker), NULL,
-			shinigami, philosopheros) != 0)
-		return (0);
+	if (philosopheros[0]->shared->number_of_eating == -1)
+		if (pthread_create(&(shared->thread_checker), NULL,
+				shinigami, philosopheros) != 0)
+			return (0);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:29:57 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 19:17:40 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/17 09:11:40 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	check_deth(t_philosopher *philosopher, long cur_time)
 		pthread_mutex_lock(&(philosopher->shared->dead_locker));
 		philosopher->shared->is_dead = 1;
 		pthread_mutex_unlock(&(philosopher->shared->dead_locker));
-		// if(philosopher->eating_number < philosopher->shared->number_of_eating)
-			printf("%ld %d died\n", cur_time, philosopher->number);
+		printf("%ld %d died\n", cur_time, philosopher->number);
 		pthread_mutex_unlock(&(philosopher->shared->print_locker));
 		dead = 1;
 	}

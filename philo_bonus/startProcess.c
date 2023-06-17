@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:05:28 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 17:35:13 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/17 09:50:14 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ int	waiting_philos(t_philosopher **philos, t_shared *shared)
 int	philo_life(t_philosopher *phil)
 {
 	pthread_t	shinigami;
-
-	pthread_create(&shinigami, NULL, end_philos, phil);
+	
+	// if (phil->shared->eating_number ==  -1)
+		pthread_create(&shinigami, NULL, end_philos, phil);
 	if (phil->pos % 2 != 0)
 		upgraded_usleep(phil->shared->time_to_eat);
 	while (1)
