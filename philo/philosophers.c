@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:02:58 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/17 10:08:54 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/17 12:15:38 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	philo_start_data(t_philosopher *philosopher, t_fork **forks
 	philosopher->left_f->fork_used = 0;
 	pthread_mutex_init(&(philosopher->last_eat_locker), NULL);
 	pthread_mutex_init(&(philosopher->left_f->lock), NULL);
+	pthread_mutex_init(&(philosopher->eating_num_lock), NULL);
 }
 
 int	alloc_philos(t_philosopher **philosopheros, t_fork **forks

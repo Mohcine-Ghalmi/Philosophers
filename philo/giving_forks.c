@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:29:57 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/17 10:12:37 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/17 14:55:15 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	check_deth(t_philosopher *philosopher, long cur_time)
 	pthread_mutex_lock(&(philosopher->last_eat_locker));
 	last_eat = cur_time - philosopher->last_eat;
 	pthread_mutex_unlock(&(philosopher->last_eat_locker));
+	if (philosopher->shared->number_of_eating >= 1)
+		checking_eating(philosopher, &dead);
 	if (last_eat > philosopher->shared->time_to_die)
 	{
 		pthread_mutex_lock(&(philosopher->shared->print_locker));
@@ -98,7 +100,6 @@ void	fork_taker(char *fork_name, t_philosopher *philosopher)
 			pthread_mutex_unlock(&(fork->lock));
 			my_printer("has taken a fork", philosopher);
 		}
-		else
-			pthread_mutex_unlock(&(fork->lock));
+		pthread_mutex_unlock(&(fork->lock));
 	}
 }

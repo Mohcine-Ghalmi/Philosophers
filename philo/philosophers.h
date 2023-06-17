@@ -47,6 +47,7 @@ typedef struct s_philosopher
 	long			last_eat;
 	pthread_mutex_t	last_eat_locker;
 	int				eating_number;
+	pthread_mutex_t	eating_num_lock;
 	t_fork			*right_f;
 	int				right_taken;
 	t_fork			*left_f;
@@ -69,5 +70,6 @@ long	timevalue(void);
 long	ft_atoi(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	after_taking(t_philosopher *philosopher);
+void	checking_eating(t_philosopher *philosopher, int *dead);
 
 #endif
