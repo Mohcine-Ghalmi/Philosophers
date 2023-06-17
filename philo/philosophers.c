@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:02:58 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 19:10:55 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/17 10:08:54 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	init_shared(t_shared *shared, int argc, char **argv)
 	if (argc > 5)
 	{
 		shared->number_of_eating = ft_atoi(argv[5]);
-		if (ft_atoi(argv[5]) < 0)
+		if (ft_atoi(argv[5]) <= 0)
 			return (0);
 	}
 	shared->is_dead = 0;
@@ -94,8 +94,7 @@ int	main(int argc, char **argv)
 	t_philosopher		*philosopheros;
 	t_fork				*forks;
 
-	init_shared(&shared, argc, argv);
-	if (check_args(&shared))
+	if (!init_shared(&shared, argc, argv) || check_args(&shared))
 		return (0);
 	if (alloc_philos(&philosopheros, &forks, &shared) == 0)
 		return (0);
