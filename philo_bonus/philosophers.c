@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:05:21 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/19 00:04:50 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/19 00:26:03 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,20 @@ int	init_shared(t_shared *shared, int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_shared	shared;
+	t_shared			shared;
 	t_philosopher		*philos;
-	pthread_t	thread2;
+	pthread_t			thread2;
 
 	thread2 = NULL;
 	init_shared(&shared, argc, argv);
-	printf("1 - %d\n", getpid());
 	if (check_args(&shared))
 		return (0);
 	init_sem(&shared);
 	if (alloc_philos(&philos, &shared) == 0)
 		return (0);
 	if (philos_start(&philos, &shared) == 1)
-	{
-		// waiting_philos(&philos, &shared);
-		printf("main proces21\n");
 		kill_proce(&philos, &shared);
-	}
 	pthread_detach(shared.shinigami);
-	printf("%d\n", getpid());
 	sem_unlink("forks");
 	sem_unlink("printer");
 	sem_unlink("done");
@@ -108,10 +102,7 @@ int	main(int argc, char **argv)
 	free(philos);
 	sem_close(shared.forks);
 	sem_close(shared.printer);
-	printf("main proces1\n");
 	sem_close(shared.finished);
-	printf("main proces2\n");
 	sem_close(shared.opt);
-	printf("main proces3\n");
 	return (0);
 }

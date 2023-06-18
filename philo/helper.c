@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:29:59 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/15 16:02:45 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/18 15:08:33 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ long	timevalue(void)
 long	ft_atoi(const char *str)
 {
 	long	res;
-	long	i;
+	int		i;
 	int		signe;
 
 	res = 0;
@@ -54,19 +54,15 @@ long	ft_atoi(const char *str)
 		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r'
 		|| str[i] == ' ')
 		i++;
-	if (str[i] == '-')
-	{
-		signe *= -1;
-		i++;
-	}
-	while (str[i])
-	{
-		if (str[i] < 48 || str[i] > 57)
-			return (-1);
-		else
-			res = res * 10 + (str[i] - '0');
-		i++;
-	}
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			signe *= -1;
+	if (!str[i])
+		signe = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+		res = res * 10 + str[i++] - '0';
+	if (str[i] || signe == 0)
+		return (-1);
 	return (signe * res);
 }
 

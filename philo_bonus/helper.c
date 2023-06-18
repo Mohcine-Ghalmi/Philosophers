@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:05:38 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 17:09:38 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/19 00:24:16 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		res[i++] = s2[j++];
 	res[i] = '\0';
+	free((void *)s2);
 	return (res);
 }

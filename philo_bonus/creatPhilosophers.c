@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:05:15 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/18 22:06:13 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/19 00:25:49 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	init_philosophero(t_philosopher *phil, t_shared *shared, int n_philo)
 	sem_unlink(sem_eating);
 	phil->last_eat = sem_open(sem_name, O_CREAT, 0644, 1);
 	phil->eating_num = sem_open(sem_eating, O_CREAT, 0644, 1);
-	// sem_unlink(sem_eating);
-	// sem_unlink(sem_name);
 	free(sem_name);
 	free(sem_eating);
 }
@@ -89,7 +87,5 @@ int	alloc_philos(t_philosopher **philos, t_shared	*shared)
 		init_philosophero(&(*philos)[n_philo], shared, n_philo);
 		n_philo++;
 	}
-
 	return (1);
 }
-
