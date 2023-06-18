@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:05:15 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 17:03:54 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/18 22:06:13 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,22 @@ char	*ft_itoa(int n)
 void	init_philosophero(t_philosopher *phil, t_shared *shared, int n_philo)
 {
 	char	*sem_name;
+	char	*sem_eating;
 
 	phil->shared = shared;
 	phil->pos = n_philo + 1;
 	phil->last_meal = 0;
 	phil->eating_count = 0;
 	sem_name = ft_strjoin("sem", ft_itoa(phil->pos));
+	sem_eating = ft_strjoin("eat", ft_itoa(phil->pos));
 	sem_unlink(sem_name);
+	sem_unlink(sem_eating);
 	phil->last_eat = sem_open(sem_name, O_CREAT, 0644, 1);
-	sem_unlink(sem_name);
+	phil->eating_num = sem_open(sem_eating, O_CREAT, 0644, 1);
+	// sem_unlink(sem_eating);
+	// sem_unlink(sem_name);
 	free(sem_name);
+	free(sem_eating);
 }
 
 int	alloc_philos(t_philosopher **philos, t_shared	*shared)
@@ -83,6 +89,7 @@ int	alloc_philos(t_philosopher **philos, t_shared	*shared)
 		init_philosophero(&(*philos)[n_philo], shared, n_philo);
 		n_philo++;
 	}
+
 	return (1);
 }
 

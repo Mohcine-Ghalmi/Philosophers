@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:05:28 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/17 09:50:14 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/19 00:08:21 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,16 @@ int	philos_start(t_philosopher **philos, t_shared *shared)
 	{
 		(*philos)[n_philo].pid = fork();
 		if ((*philos)[n_philo].pid == 0)
+		{
+			printf("before %d\n", getpid());
 			philo_life(&((*philos)[n_philo]));
+			printf("after %d\n", getpid());
+			exit(0);
+		}
 		n_philo++;
 	}
-	if (pthread_create(&(shared->shinigami), NULL,
-			wait_death, philos))
-		return (0);
+	// if (pthread_create(&(shared->shinigami), NULL,wait_death, philos))
+	// 	return (0);
 	return (1);
 }
 
@@ -49,14 +53,25 @@ int	waiting_philos(t_philosopher **philos, t_shared *shared)
 {
 	int	n_philo;
 	int	code;
-
+	int status;
+	int eat_max = 0;
 	n_philo = 0;
 	code = 1;
-	while (n_philo < shared->num)
+	(void)philos;
+	(void)shared;
+	while (1)
 	{
-		if (waitpid((*philos)[n_philo].pid, NULL, 0) == -1)
-			code = 0;
-		n_philo++;
+		waitpid(0, &status, 0);
+		// printf("status == %d\n", WEXITSTATUS(status));
+		// printf("max == %d ____ num == %d\n", shared->max_eat, shared->num);
+		if (WEXITSTATUS(status) != 0)
+			return (code);
+		else
+			eat_max++;
+		if (eat_max == shared->num)
+		{
+			return (0);
+		}
 	}
 	return (code);
 }
@@ -65,26 +80,32 @@ int	philo_life(t_philosopher *phil)
 {
 	pthread_t	shinigami;
 	
-	// if (phil->shared->eating_number ==  -1)
-		pthread_create(&shinigami, NULL, end_philos, phil);
-	if (phil->pos % 2 != 0)
-		upgraded_usleep(phil->shared->time_to_eat);
+	pthread_create(&shinigami, NULL, end_philos, phil);
+	pthread_detach(shinigami);
 	while (1)
 	{
-		if (phil->eating_count >= phil->shared->eating_number
-			&& phil->shared->eating_number > 0)
-			break ;
+		// sem_wait(phil->eating_num);
+		// if (phil->eating_count >= phil->shared->eating_number && phil->shared->eating_number > 0)
+		// {
+		// 	// sem_post(phil->eating_num);
+		// 	break ;
+		// }
+		// sem_post(phil->eating_num);
 		taking(phil);
 		taking(phil);
 		print_state("is eating", phil);
 		upgraded_usleep(phil->shared->time_to_eat);
+		int i = sem_wait(phil->eating_num);
+		// printf("after wait id == %d ___ i == %d\n", phil->pos, i);
 		phil->eating_count++;
+		i = sem_post(phil->eating_num);
+		// printf("after post id == %d ___ i == %d\n", phil->pos, i);
 		sem_wait(phil->last_eat);
 		phil->last_meal = timevalue() - phil->shared->start_time;
 		sem_post(phil->last_eat);
 		give_and_sleep(phil);
 		print_state("is thinking", phil);
 	}
+	// sem_post(phil->shared->finished);
 	return (1);
 }
-

@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:43:31 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 17:09:38 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/18 23:52:54 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ typedef struct s_shared
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			eating_number;
+	int			max_eat;
 	long		start_time;
 	sem_t		*printer;
 	sem_t		*forks;
 	sem_t		*finished;
+	sem_t		*opt;
 }	t_shared;
 
 typedef struct s_phil
@@ -45,6 +47,7 @@ typedef struct s_phil
 	int			pos;
 	long		last_meal;
 	sem_t		*last_eat;
+	sem_t		*eating_num;
 	int			eating_count;
 	t_shared	*shared;
 }	t_philosopher;

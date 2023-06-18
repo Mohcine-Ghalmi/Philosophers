@@ -6,7 +6,7 @@
 /*   By: mghalmi <mghalmi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:05:21 by mghalmi           #+#    #+#             */
-/*   Updated: 2023/06/16 17:25:47 by mghalmi          ###   ########.fr       */
+/*   Updated: 2023/06/19 00:04:50 by mghalmi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	init_sem(t_shared *shared)
 	sem_unlink("forks");
 	sem_unlink("printer");
 	sem_unlink("done");
+	sem_unlink("optional");
 	shared->forks = sem_open("forks", O_CREAT, 0644, shared->num);
 	shared->printer = sem_open("printer", O_CREAT, 0644, 1);
 	shared->finished = sem_open("done", O_CREAT, 0644, 0);
+	shared->opt = sem_open("optional", O_CREAT, 0644, 1);
 }
 
 int	ft_atoi(const char *str)
@@ -67,6 +69,7 @@ int	init_shared(t_shared *shared, int argc, char **argv)
 	shared->time_to_eat = ft_atoi(argv[3]);
 	shared->time_to_sleep = ft_atoi(argv[4]);
 	shared->eating_number = -1;
+	shared->max_eat = 0;
 	if (argc > 5)
 	{
 		shared->eating_number = ft_atoi(argv[5]);
@@ -80,23 +83,35 @@ int	main(int argc, char **argv)
 {
 	t_shared	shared;
 	t_philosopher		*philos;
+	pthread_t	thread2;
 
+	thread2 = NULL;
 	init_shared(&shared, argc, argv);
+	printf("1 - %d\n", getpid());
 	if (check_args(&shared))
 		return (0);
 	init_sem(&shared);
 	if (alloc_philos(&philos, &shared) == 0)
 		return (0);
-	if (philos_start(&philos, &shared) == 0)
+	if (philos_start(&philos, &shared) == 1)
+	{
+		// waiting_philos(&philos, &shared);
+		printf("main proces21\n");
 		kill_proce(&philos, &shared);
-	pthread_join(shared.shinigami, NULL);
+	}
+	pthread_detach(shared.shinigami);
+	printf("%d\n", getpid());
 	sem_unlink("forks");
 	sem_unlink("printer");
 	sem_unlink("done");
-	waiting_philos(&philos, &shared);
+	sem_unlink("optional");
 	free(philos);
 	sem_close(shared.forks);
 	sem_close(shared.printer);
+	printf("main proces1\n");
 	sem_close(shared.finished);
+	printf("main proces2\n");
+	sem_close(shared.opt);
+	printf("main proces3\n");
 	return (0);
 }
